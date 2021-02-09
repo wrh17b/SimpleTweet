@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -28,8 +29,9 @@ public class VideoHolder extends RecyclerView.ViewHolder {
     TextView tvTweetBody;
     TextView tvRelativeTime;
     VideoView vvVideo;
-    MediaController mediaController;
     Context context;
+
+
 
     public VideoHolder(@NonNull View itemView,Context context) {
         super(itemView);
@@ -64,9 +66,16 @@ public class VideoHolder extends RecyclerView.ViewHolder {
 
             vvVideo.start();
         if(type.equals("video")){
-            mediaController=new MediaController(context);
-            mediaController.setAnchorView(vvVideo);
-            vvVideo.setMediaController(mediaController);
+            vvVideo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vvVideo.isPlaying()){
+                        vvVideo.pause();
+                    }else{
+                        vvVideo.start();
+                    }
+                }
+            });
         }
 
         vvVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

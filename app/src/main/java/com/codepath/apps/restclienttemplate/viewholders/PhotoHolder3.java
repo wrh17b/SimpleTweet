@@ -67,19 +67,19 @@ public class PhotoHolder3 extends RecyclerView.ViewHolder {
 
         Glide.with(context)
                 .load(tweet.tweetMedia.get(0).mediaUrl)
-                //.centerCrop()
+                .centerCrop()
                 .transform(new RoundedCornersTransformation(30,10))
                 .into(ivPhoto1);
 
         Glide.with(context)
                 .load(tweet.tweetMedia.get(1).mediaUrl)
-                //.centerCrop()
+                .centerCrop()
                 .transform(new RoundedCornersTransformation(30,10))
                 .into(ivPhoto2);
 
         Glide.with(context)
                 .load(tweet.tweetMedia.get(2).mediaUrl)
-                //.centerCrop()
+                .centerCrop()
                 .transform(new RoundedCornersTransformation(30,10))
                 .into(ivPhoto3);
     }
