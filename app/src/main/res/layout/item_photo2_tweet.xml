@@ -15,7 +15,8 @@
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/ivRetweetIcon"
         android:textStyle="bold"
-        tools:text="Retweeted by wes" />
+        tools:text="Retweeted by wes"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivRetweetIcon"
@@ -25,7 +26,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/ic_vector_retweet" />
+        app:srcCompat="@drawable/ic_vector_retweet"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivProfilePic"
@@ -90,5 +92,37 @@
         android:layout_marginEnd="5dp"
         tools:text="2m"
         tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/llMediaHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTweetBody"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:minHeight="200dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivPhoto1"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivPhoto2"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
 
 </RelativeLayout>

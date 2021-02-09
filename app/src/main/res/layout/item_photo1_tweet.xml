@@ -91,4 +91,18 @@
         tools:text="2m"
         tools:visibility="visible" />
 
+    <ImageView
+        android:id="@+id/ivPhoto1"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvTweetBody"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:minHeight="200dp"
+        android:padding="2dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </RelativeLayout>

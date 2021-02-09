@@ -12,14 +12,45 @@ public class Tweet {
     public String createdAt;
     public User user;
     public long id;
+    public Boolean hasMedia; //if the json Object has extended entities
+    public List<Media> tweetMedia;
+    public String mediaType;
+    public Boolean isRetweet;
+    public String retweeter;
 
 
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
+        tweet.tweetMedia=new ArrayList<>();
+
+        tweet.id=jsonObject.getLong("id");
+
+        tweet.isRetweet=false;
+        tweet.retweeter=null;
+        if(jsonObject.has("retweeted_status")){
+            tweet.isRetweet=true;
+            tweet.retweeter=jsonObject.getJSONObject("user").getString("name");
+            jsonObject=jsonObject.getJSONObject("retweeted_status");
+
+        }
+
+
+        tweet.hasMedia=false;
+        tweet.mediaType=null;
+        if(jsonObject.has("extended_entities")){
+            tweet.hasMedia=true;
+            tweet.tweetMedia.
+                    addAll(Media.fromJsonArray(
+                            jsonObject
+                                    .getJSONObject("extended_entities")
+                                    .getJSONArray("media")));
+            tweet.mediaType=tweet.tweetMedia.get(0).mediaType;
+        }
+
         tweet.tweetBody=jsonObject.getString("text");
         tweet.createdAt=jsonObject.getString("created_at");
-        tweet.id=jsonObject.getLong("id");
+
         tweet.user=User.fromJson(jsonObject.getJSONObject("user"));
         return tweet;
     }

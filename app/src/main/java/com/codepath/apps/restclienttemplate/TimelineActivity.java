@@ -3,11 +3,15 @@ package com.codepath.apps.restclienttemplate;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.util.FileUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.adapters.ComplexTweetAdapter;
 import com.codepath.apps.restclienttemplate.adapters.TweetsAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -15,10 +19,14 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
+
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -26,15 +34,18 @@ public class TimelineActivity extends AppCompatActivity {
     TwitterClient client;
     RecyclerView rvTimeline;
     List<Tweet> tweets;
-    TweetsAdapter adapter;
+    //TweetsAdapter adapter;
+    ComplexTweetAdapter adapter;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        context = this;
         client=TwitterApp.getRestClient(this);
 
 
@@ -55,7 +66,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         rvTimeline=findViewById(R.id.rvTimeline);
         tweets = new ArrayList<>();
-        adapter = new TweetsAdapter(this,tweets);
+        //adapter = new TweetsAdapter(this,tweets);
+        adapter = new ComplexTweetAdapter(this,tweets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvTimeline.setLayoutManager(layoutManager);
         rvTimeline.setAdapter(adapter);
