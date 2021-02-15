@@ -27,7 +27,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         app:srcCompat="@drawable/ic_vector_retweet"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        app:tint="@android:color/darker_gray"/>
 
     <ImageView
         android:id="@+id/ivProfilePic"
@@ -108,7 +109,7 @@
 
         <ImageView
             android:id="@+id/ivPhoto1"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="200dp"
             android:layout_weight="1"
             android:padding="2dp"
@@ -116,11 +117,35 @@
 
         <ImageView
             android:id="@+id/ivPhoto2"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="200dp"
             android:layout_weight="1"
             android:padding="2dp"
             tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibtnLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibtnRetweet"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ibtnRetweet"
+        android:background="?android:attr/colorBackgroundCacheHint"
+        android:tint="@color/inline_action_like"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+    <ImageButton
+        android:id="@+id/ibtnRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llMediaHolder"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:background="?android:attr/colorBackgroundCacheHint"
+        android:tint="@color/inline_action_retweet"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
 
 </RelativeLayout>

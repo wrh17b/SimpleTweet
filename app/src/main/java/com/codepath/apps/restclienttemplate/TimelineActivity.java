@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,17 +8,23 @@ import androidx.room.util.FileUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.adapters.ComplexTweetAdapter;
 import com.codepath.apps.restclienttemplate.adapters.TweetsAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,6 +38,7 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG="TimelineActivity";
+    public static final int COMPOSE_REQUEST=0;
     TwitterClient client;
     RecyclerView rvTimeline;
     List<Tweet> tweets;
@@ -39,6 +47,7 @@ public class TimelineActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
     Context context;
+    FloatingActionButton fabCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,16 @@ public class TimelineActivity extends AppCompatActivity {
 
         context = this;
         client=TwitterApp.getRestClient(this);
+
+        fabCompose=findViewById(R.id.fabCompose);
+        fabCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context,ComposeActivity.class);
+
+                startActivityForResult(intent,COMPOSE_REQUEST);
+            }
+        });
 
 
 
@@ -89,6 +108,46 @@ public class TimelineActivity extends AppCompatActivity {
 
 
         
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.compose:
+                //navigate to compose activity
+                Intent intent= new Intent(this,ComposeActivity.class);
+                startActivityForResult(intent,COMPOSE_REQUEST);
+
+                //note on composing a tweet: the post request returns a json object identical to
+                // the ones we use for getting a tweet, we can use this to our advantage when adding
+                //the tweet to the timeline
+
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==COMPOSE_REQUEST){
+            switch(resultCode){
+                case RESULT_OK:
+                    Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+                    tweets.add(0,tweet);
+                    adapter.notifyItemInserted(0);
+                    break;
+                case RESULT_CANCELED:
+                    Toast.makeText(context, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
     }
 
     private void loadMoreData() {

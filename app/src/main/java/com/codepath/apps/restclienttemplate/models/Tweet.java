@@ -3,26 +3,38 @@ package com.codepath.apps.restclienttemplate.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Tweet {
     public String tweetBody;
     public String createdAt;
-    public User user;
-    public long id;
-    public Boolean hasMedia; //if the json Object has extended entities
-    public List<Media> tweetMedia;
-    public String mediaType;
-    public Boolean isRetweet;
     public String retweeter;
+    public String mediaType;
+
+    public Boolean hasMedia; //if the json Object has extended entities
+    public Boolean isRetweet; //if the tweet shown on the timeline is a retweet
+    public Boolean retweeted; //if the authenticated user has retweeted the tweet
+    public Boolean favorited; //if the authenticated user has favorited (previously called "like") the tweet
+
+    public long id;
+    public long retweet_id;
+
+    public User user;
+    public List<Media> tweetMedia;
 
 
+
+    //Empty constructor for parceler library
+    public Tweet(){}
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
         tweet.tweetMedia=new ArrayList<>();
+        tweet.retweet_id=0;
 
         tweet.id=jsonObject.getLong("id");
 
@@ -32,7 +44,6 @@ public class Tweet {
             tweet.isRetweet=true;
             tweet.retweeter=jsonObject.getJSONObject("user").getString("name");
             jsonObject=jsonObject.getJSONObject("retweeted_status");
-
         }
 
 
@@ -52,6 +63,12 @@ public class Tweet {
         tweet.createdAt=jsonObject.getString("created_at");
 
         tweet.user=User.fromJson(jsonObject.getJSONObject("user"));
+
+        tweet.retweeted=jsonObject.getBoolean("retweeted");
+        tweet.favorited=jsonObject.getBoolean("favorited");
+
+        tweet.retweet_id=jsonObject.getLong("id");
+
         return tweet;
     }
 
@@ -74,7 +91,6 @@ public class Tweet {
     public User getUser() {
         return user;
     }
-
 
     public long getId() {
         return id;

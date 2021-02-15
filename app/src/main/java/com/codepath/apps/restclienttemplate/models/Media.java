@@ -6,15 +6,20 @@ import android.widget.TableRow;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Media {
     public static final String TAG="Media";
     public String mediaType; //Type of media animated_gif,photo,video
     public String mediaUrl;
 
+
+    //Empty Constructor needed for parceler library
+    public Media(){}
 
     public static List<Media> fromJsonArray(JSONArray jsonArray) throws JSONException {
         List<Media> mediaList = new ArrayList<>();

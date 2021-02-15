@@ -25,7 +25,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/ic_vector_retweet" />
+        app:srcCompat="@drawable/ic_vector_retweet"
+        app:tint="@android:color/darker_gray"/>
 
     <ImageView
         android:id="@+id/ivProfilePic"
@@ -93,7 +94,7 @@
 
     <VideoView
         android:id="@+id/vvVideo"
-        android:layout_width="wrap_content"
+        android:layout_width="325dp"
         android:layout_height="200dp"
         android:layout_below="@+id/tvTweetBody"
         android:layout_alignParentEnd="true"
@@ -101,6 +102,30 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/ivProfilePic" />
+
+    <ImageButton
+        android:id="@+id/ibtnLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibtnRetweet"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ibtnRetweet"
+        android:background="?android:attr/colorBackgroundCacheHint"
+        android:tint="@color/inline_action_like"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+    <ImageButton
+        android:id="@+id/ibtnRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vvVideo"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:background="?android:attr/colorBackgroundCacheHint"
+        android:tint="@color/inline_action_retweet"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
 
 
 </RelativeLayout>
