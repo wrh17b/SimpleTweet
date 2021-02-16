@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/tvRetweet"
@@ -95,7 +96,7 @@
     <VideoView
         android:id="@+id/vvVideo"
         android:layout_width="325dp"
-        android:layout_height="200dp"
+        android:layout_height="325dp"
         android:layout_below="@+id/tvTweetBody"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
